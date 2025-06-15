@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purnota Sheikh - SEO Expert Portfolio</title>
+    <!-- Add Google Fonts for Stylish Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #23272f;
+            --secondary: #181a20;
+            --accent: #00b894;
+            --gradient: linear-gradient(135deg, #23272f 0%, #353945 100%);
+            --text-light: #f8f8f8;
+            --text-dark: #bbb;
+            --card-bg: #22252b;
+            --border: #33363d;
+            --shadow: 0 4px 24px rgba(0,0,0,0.7);
+            --font-main: 'Montserrat', 'Poppins', Arial, sans-serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: var(--font-main);
+            background: var(--gradient);
+            color: var(--text-light);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        /* Navigation */
+        nav {
+            background: var(--secondary);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            font-family: 'Poppins', cursive;
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00b894, #00cec9, #0984e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0; bottom: -4px;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            background-image: radial-gradient(circle at 20% 10%, rgba(0,184,148,0.05) 0%, transparent 70%), radial-gradient(circle at 90% 80%, rgba(9,132,227,0.08) 0%, transparent 60%);
+            text-align: center;
+            padding-top: 5rem;
+        }
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00b894, #00cec9 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            padding: 15px 38px;
+            color: var(--text-light);
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 6px 32px rgba(0,184,148,0.18);
+            margin-top: 10px;
+        }
+        .cta-button:hover {
+            background: #0984e3;
+            transform: translateY(-2px) scale(1.04);
+        }
+        /* About */
+        .about {
+            background: var(--secondary);
+            padding: 5rem 0 4rem;
+        }
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+        .about-text {
+            flex: 2;
+            min-width: 270px;
+        }
+        .about-text h2 {
+            font-size: 2.4rem;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg,#00b894,#00cec9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            margin-bottom: 1.4rem;
+        }
+        .stats {
+            flex: 1;
+            min-width: 200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.4rem;
+        }
+        .stat-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.14);
+        }
+        .stat-number {
+            font-size: 2.1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+        /* Services */
+        .services {
+            background: var(--primary);
+            padding: 5rem 0 4rem;
+        }
+        .services h2 {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 3.5rem;
+            color: var(--accent);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+            gap: 2.2rem;
+        }
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.5rem 1.6rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 16px rgba(0,184,148,0.11);
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .service-card:hover {
+            transform: translateY(-7px) scale(1.04);
+            box-shadow: 0 8px 32px rgba(0,184,148,0.15);
+        }
+        .service-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .service-card h3 {
+            font-size: 1.17rem;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        .service-card p {
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+        /* Projects */
+        .projects {
+            background: var(--secondary);
+            padding: 5rem 0 4rem;
+        }
+        .projects h2 {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 3.5rem;
+            color: var(--accent);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 18px rgba(0,184,148,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 10px 44px rgba(0,184,148,0.19);
+        }
+        .project-header {
+            background: var(--primary);
+            color: var(--accent);
+            padding: 1.3rem;
+            text-align: center;
+        }
+        .project-title {
+            font-size: 1.2rem;
+            font-family: 'Poppins',sans-serif;
+            font-weight: bold;
+        }
+        .project-type {
+            font-size: 0.97rem;
+            color: var(--text-dark);
+            font-style: italic;
+        }
+        .project-content {
+            padding: 1.3rem;
+        }
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .project-stat-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        .project-stat-label {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+        .rating {
+            display: flex;
+            justify-content: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+        .star {
+            color: #f1c40f;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        /* Contact */
+        .contact {
+            background: var(--primary);
+            color: var(--text-light);
+            padding: 5rem 0 4rem;
+        }
+        .contact h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--accent);
+            font-family: 'Poppins',sans-serif;
+            margin-bottom: 3.5rem;
+        }
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .contact-info {
+            flex: 1;
+            min-width: 230px;
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 2rem 1.5rem;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.3rem;
+            padding: 0.7rem 0.4rem;
+            border-radius: 7px;
+            transition: background 0.2s;
+        }
+        .contact-item:hover {
+            background: #23272f;
+        }
+        .contact-icon {
+            font-size: 1.6rem;
+            margin-right: 1rem;
+            color: var(--accent);
+        }
+        .contact-text h4 {
+            font-family: 'Poppins',sans-serif;
+            font-size: 1.06rem;
+            margin-bottom: 0.2rem;
+        }
+        .contact-text a {
+            color: #00cec9;
+            text-decoration: underline;
+        }
+        .contact-text a:hover { color: #fff; }
+        .contact-form {
+            flex: 2;
+            min-width: 240px;
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 2rem 1.5rem;
+            border: 1px solid var(--border);
+        }
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+        .form-group label {
+            display: block;
+            font-family: 'Poppins',sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: none;
+            background: #191c22;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Montserrat',sans-serif;
+            margin-bottom: 0.2rem;
+        }
+        .form-group textarea {
+            height: 90px;
+            resize: vertical;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #00b894,#00cec9);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 0.8rem 2.3rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background: #0984e3;
+            transform: scale(1.04);
+        }
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: var(--text-dark);
+            text-align: center;
+            padding: 1.5rem 0 0.9rem;
+            font-size: 1rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-content, .contact-content { flex-direction: column; }
+            .stats { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .about-text h2 { font-size: 1.45rem; }
+            .services h2, .projects h2, .contact h2 { font-size: 1.4rem; }
+            .stats { grid-template-columns: 1fr; }
+        }
+        /* Scroll animation */
+        .scroll-animate { opacity: 0; transform: translateY(44px); transition: all 0.8s; }
+        .scroll-animate.active { opacity: 1; transform: translateY(0px); }
+        /* Cursor for typewriter */
+        .cursor { animation: blink 1s infinite; }
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">PS</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                  <a href="#resources">Resources</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Purnota Sheikh</h1>
+                <p class="hero-subtitle">Expert SEO Specialist & Digital Marketing Professional</p>
+                <a href="#contact" class="cta-button">Let's Work Together</a>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content scroll-animate">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>I'm a passionate SEO specialist with 2 years of dedicated experience in transforming digital landscapes. My expertise spans both on-page and off-page SEO strategies, helping businesses achieve remarkable online visibility and growth.</p>
+                    <p>With a proven track record of successful projects and satisfied clients, I combine technical expertise with creative strategies to deliver results that matter. Every project is a journey toward digital excellence.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">2+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Client Satisfaction</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="scroll-animate">My Services</h2>
+            <div class="services-grid">
+                <div class="service-card scroll-animate">
+                    <div class="service-icon"><i class="fas fa-search"></i></div>
+                    <h3>On-Page SEO</h3>
+                    <p>Complete on-page optimization including keyword research, meta tags, content optimization, internal linking, and technical SEO improvements for better search rankings.</p>
+                </div>
+                <div class="service-card scroll-animate">
+                    <div class="service-icon"><i class="fas fa-link"></i></div>
+                    <h3>Off-Page SEO</h3>
+                    <p>Strategic link building, guest posting, local citations, social signals, and brand mentions to boost your website's authority and domain strength.</p>
+                </div>
+                <div class="service-card scroll-animate">
+                    <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>SEO Analysis</h3>
+                    <p>Comprehensive website audits, competitor analysis, keyword research, and performance tracking to identify opportunities and optimize strategies.</p>
+                </div>
+                <div class="service-card scroll-animate">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Local SEO</h3>
+                    <p>Local business optimization, Google My Business setup, local citations, and location-based keyword targeting for improved local visibility.</p>
+                </div>
+                <div class="service-card scroll-animate">
+                    <div class="service-icon"><i class="fas fa-edit"></i></div>
+                    <h3>Content Strategy</h3>
+                    <p>SEO-optimized content creation, blog writing, content planning, and content gap analysis to engage your audience and improve rankings.</p>
+                </div>
+                <div class="service-card scroll-animate">
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Technical SEO</h3>
+                    <p>Website speed optimization, mobile responsiveness, schema markup, XML sitemaps, and technical fixes for better search engine crawling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="scroll-animate">Success Stories</h2>
+            <div class="projects-grid">
+                <div class="project-card scroll-animate">
+                    <div class="project-header">
+                        <h3 class="project-title">E-commerce Fashion Store</h3>
+                        <p class="project-type">Complete SEO Overhaul</p>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-stats">
+                            <div>
+                                <div class="project-stat-value">300%</div>
+                                <div class="project-stat-label">Traffic Increase</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">150%</div>
+                                <div class="project-stat-label">Conversion Rate</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">6 Months</div>
+                                <div class="project-stat-label">Timeline</div>
+                            </div>
+                        </div>
+                        <p>Transformed a struggling fashion e-commerce site into a top-performing online store through comprehensive SEO strategy and optimization.</p>
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card scroll-animate">
+                    <div class="project-header">
+                        <h3 class="project-title">Local Restaurant Chain</h3>
+                        <p class="project-type">Local SEO Campaign</p>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-stats">
+                            <div>
+                                <div class="project-stat-value">250%</div>
+                                <div class="project-stat-label">Local Visibility</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">180%</div>
+                                <div class="project-stat-label">Foot Traffic</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">4 Months</div>
+                                <div class="project-stat-label">Timeline</div>
+                            </div>
+                        </div>
+                        <p>Boosted local search presence for a restaurant chain, resulting in significant increase in reservations and walk-in customers.</p>
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card scroll-animate">
+                    <div class="project-header">
+                        <h3 class="project-title">Tech Startup Blog</h3>
+                        <p class="project-type">Content SEO Strategy</p>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-stats">
+                            <div>
+                                <div class="project-stat-value">400%</div>
+                                <div class="project-stat-label">Organic Traffic</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">200%</div>
+                                <div class="project-stat-label">Engagement</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">8 Months</div>
+                                <div class="project-stat-label">Timeline</div>
+                            </div>
+                        </div>
+                        <p>Developed and executed a comprehensive content strategy that established the startup as a thought leader in their industry.</p>
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card scroll-animate">
+                    <div class="project-header">
+                        <h3 class="project-title">Healthcare Clinic</h3>
+                        <p class="project-type">Medical SEO Optimization</p>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-stats">
+                            <div>
+                                <div class="project-stat-value">220%</div>
+                                <div class="project-stat-label">Patient Inquiries</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">160%</div>
+                                <div class="project-stat-label">Online Bookings</div>
+                            </div>
+                            <div>
+                                <div class="project-stat-value">5 Months</div>
+                                <div class="project-stat-label">Timeline</div>
+                            </div>
+                        </div>
+                        <p>Specialized medical SEO campaign that improved online visibility and patient acquisition for a multi-specialty healthcare clinic.</p>
+                        <div class="rating">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Resources Section -->
+    <section id="resources" class="about">
+      <div class="container">
+        <div class="about-content scroll-animate">
+          <div class="about-text">
+            <h2>SEO & Digital Marketing Resources</h2>
+            <ul style="list-style: none; padding-left:0; margin-top:1rem;">
+              <li><a href="https://moz.com/beginners-guide-to-seo" target="_blank" rel="noopener"><i class="fas fa-link"></i> Moz Beginner's Guide to SEO</a></li>
+              <li><a href="https://ahrefs.com/blog/seo-basics/" target="_blank" rel="noopener"><i class="fas fa-link"></i> Ahrefs SEO Basics</a></li>
+              <li><a href="https://backlinko.com/seo-this-year" target="_blank" rel="noopener"><i class="fas fa-link"></i> Backlinko SEO Guide</a></li>
+              <li><a href="https://developers.google.com/search/docs" target="_blank" rel="noopener"><i class="fas fa-link"></i> Google Search Central Docs</a></li>
+              <li><a href="https://yoast.com/seo-blog/" target="_blank" rel="noopener"><i class="fas fa-link"></i> Yoast SEO Blog</a></li>
+              <li><a href="https://searchengineland.com/" target="_blank" rel="noopener"><i class="fas fa-link"></i> Search Engine Land</a></li>
+              <li><a href="https://neilpatel.com/blog/" target="_blank" rel="noopener"><i class="fas fa-link"></i> Neil Patel Blog</a></li>
+              <li><a href="https://www.semrush.com/blog/" target="_blank" rel="noopener"><i class="fas fa-link"></i> SEMrush Blog</a></li>
+              <li><a href="https://www.searchenginejournal.com/" target="_blank" rel="noopener"><i class="fas fa-link"></i> Search Engine Journal</a></li>
+              <li><a href="https://www.wordstream.com/blog" target="_blank" rel="noopener"><i class="fas fa-link"></i> WordStream Blog</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="scroll-animate">Let's Connect</h2>
+            <div class="contact-content">
+                <div class="contact-info scroll-animate">
+                    <div class="contact-item">
+                        <i class="fas fa-user contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Name</h4>
+                            <p>Purnota Sheikh</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Phone Number</h4>
+                            <p><a href="tel:+8801535724266">+880 1535-724266</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-facebook contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Facebook</h4>
+                            <p><a href="https://www.facebook.com/profile.php?id=61567138645156" target="_blank">Visit Profile</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/8801535724266">+880 1535-724266</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form scroll-animate">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="project">Project Type</label>
+                            <input type="text" id="project" name="project" placeholder="e.g., On-Page SEO, Local SEO">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Purnota Sheikh. All rights reserved. | SEO Expert & Digital Marketing Professional</p>
+        </div>
+    </footer>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(24,26,32,0.97)';
+                navbar.style.boxShadow = '0 4px 24px rgba(0,0,0,0.2)';
+            } else {
+                navbar.style.background = '';
+                navbar.style.boxShadow = '';
+            }
+        });
+        // Scroll animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, observerOptions);
+        document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+        // Add typewriter effect to hero subtitle
+        function typeWriter() {
+            const text = "Expert SEO Specialist & Digital Marketing Professional";
+            const subtitle = document.querySelector('.hero-subtitle');
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    subtitle.innerHTML = text.substring(0, i + 1) + '<span class="cursor">|</span>';
+                    i++;
+                    setTimeout(type, 60);
+                } else {
+                    setTimeout(() => { subtitle.innerHTML = text; }, 900);
+                }
+            }
+            setTimeout(type, 1200);
+        }
+        window.addEventListener('load', typeWriter);
+        // Form submission handler (WhatsApp)
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const project = formData.get('project');
+            const message = formData.get('message');
+            const whatsappMessage = `Hello Purnota Sheikh!\n\nName: ${name}\nEmail: ${email}\nProject Type: ${project}\n\nMessage: ${message}\n\nI'm interested in your SEO services. Please get back to me at your earliest convenience.`;
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappURL = `https://wa.me/8801535724266?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+            // Show sent style
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Message Sent! ✓';
+            submitBtn.style.background = '#00b894';
+            setTimeout(() => {
+                submitBtn.innerText = originalText;
+                submitBtn.style.background = 'linear-gradient(90deg, #00b894,#00cec9)';
+                this.reset();
+            }, 2500);
+        });
+    </script>
+</body>
+</html>
