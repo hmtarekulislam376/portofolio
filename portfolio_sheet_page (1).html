@@ -160,30 +160,13 @@
             animation: fadeIn 0.3s ease-out forwards;
         }
 
-        /* Countdown circle */
-        .countdown-circle {
-            position: absolute;
-            top: 1rem;
-            left: 1.25rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: conic-gradient(#00ff88 0deg, #333 0deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #fff;
-        }
-
         .modal-content {
             background: #111111;
             border: 1px solid #333;
             padding: 2.5rem;
             border-radius: 16px;
             width: 90%;
-            max-width: 420px;
+            max-width: 480px;
             text-align: center;
             animation: modalSlide 0.4s ease-out;
             position: relative;
@@ -198,26 +181,44 @@
 
         .modal-content p {
             font-size: 1rem;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #888;
             margin-bottom: 2rem;
         }
 
         .welcome-btn {
-            background: #00ff88;
+            background: linear-gradient(45deg, #00ff88, #00e67a);
             color: #000;
             border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
+            padding: 0.875rem 2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .welcome-btn:hover::before {
+            left: 100%;
         }
 
         .welcome-btn:hover {
-            background: #00e67a;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
         }
 
         .close {
@@ -341,11 +342,10 @@
     <!-- Welcome Modal -->
     <div id="welcomeModal" class="modal">
         <div class="modal-content">
-            <div class="countdown-circle" id="countdownCircle">3</div>
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>স্বাগতম</h2>
-            <p>আমার Google Sheet এ আপনাকে স্বাগতম। ৩ সেকেন্ড পর automatically redirect হবে।</p>
-            <button class="welcome-btn" onclick="redirectToSheet()">এখনই দেখুন</button>
+            <h2>✨ Welcome</h2>
+            <p>Here is a curated list of our live backlink samples across various platforms, created manually for quality SEO results.</p>
+            <button class="welcome-btn" onclick="redirectToSheet()">📞 Contact Us</button>
         </div>
     </div>
 
@@ -393,29 +393,16 @@
             // Hide loading screen after content loads
             setTimeout(() => {
                 document.body.classList.add('loaded');
-                startCountdown(); // Start countdown after loading
+                startAutoRedirect(); // Start auto redirect after loading
             }, 1000);
         });
 
-        // Countdown function with visual circle
-        function startCountdown() {
-            let count = 3;
-            const countdownElement = document.getElementById('countdownCircle');
-            
-            const countdownInterval = setInterval(() => {
-                count--;
-                countdownElement.textContent = count;
-                
-                // Update circle progress
-                const percentage = ((3 - count) / 3) * 360;
-                countdownElement.style.background = `conic-gradient(#00ff88 ${percentage}deg, #333 ${percentage}deg)`;
-                
-                if (count === 0) {
-                    clearInterval(countdownInterval);
-                    // Redirect to Google Sheet
-                    redirectToSheet();
-                }
-            }, 1000);
+        // Auto redirect function (3 seconds)
+        function startAutoRedirect() {
+            setTimeout(() => {
+                // Redirect to Google Sheet automatically
+                redirectToSheet();
+            }, 3000);
         }
 
         // Modal functions with smooth transitions
@@ -443,9 +430,6 @@
                 closeModal();
             }
         }
-
-        // Auto-close modal removed - now handled by countdown
-        // Users can still manually close modal anytime
 
         // Preload iframe for better performance
         window.addEventListener('load', function() {
