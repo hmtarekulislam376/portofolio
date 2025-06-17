@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Backlink Sample</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            padding: 40px;
+            background: rgba(15, 15, 35, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .welcome-btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .welcome-btn:hover::before {
+            left: 100%;
+        }
+
+        .welcome-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
+        }
+
+        .welcome-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .loading {
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading.show {
+            opacity: 1;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .floating-elements::before,
+        .floating-elements::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(108, 92, 231, 0.08);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-elements::before {
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .floating-elements::after {
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .welcome-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements"></div>
+    
+    <div class="container">
+        <h1>✨ Welcome to My Digital Space</h1>
+        <p class="subtitle">Discover amazing backlink samples and resources</p>
+        
+        <button class="welcome-btn" onclick="handleClick()">
+            🔗 Welcome My Backlink Sample List
+        </button>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <span>Redirecting to portfolio...</span>
+        </div>
+    </div>
+
+    <script>
+        function handleClick() {
+            const button = document.querySelector('.welcome-btn');
+            const loading = document.getElementById('loading');
+            
+            // Show loading state
+            button.style.opacity = '0.6';
+            button.style.cursor = 'not-allowed';
+            button.disabled = true;
+            loading.classList.add('show');
+            
+            // First redirect to portfolio after 3 seconds
+            setTimeout(() => {
+                window.open('https://hmtarekulislam376.github.io/portofolio/tarek_portfolio.html', '_blank');
+                
+                // Then redirect to Google Sheets
+                setTimeout(() => {
+                    window.location.href = 'https://docs.google.com/spreadsheets/d/1h-v0v_GOtrdojea9Mkg2YvL9yeY0ff-iaNbBb83wJlQ/edit?usp=sharing';
+                }, 500);
+            }, 3000);
+        }
+
+        // Add some interactive particles on click
+        document.addEventListener('click', function(e) {
+            createParticle(e.clientX, e.clientY);
+        });
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = '6px';
+            particle.style.height = '6px';
+            particle.style.background = 'white';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
+            particle.style.animation = 'particleFade 0.6s ease-out forwards';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                document.body.removeChild(particle);
+            }, 600);
+        }
+
+        // Add particle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFade {
+                0% {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0) translateY(-50px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
