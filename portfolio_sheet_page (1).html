@@ -344,8 +344,8 @@
             <div class="countdown-circle" id="countdownCircle">3</div>
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>স্বাগতম</h2>
-            <p>আমার Portfolio Dashboard এ আপনাকে স্বাগতম। ৩ সেকেন্ড পর automatically redirect হবে।</p>
-            <button class="welcome-btn" onclick="closeModal()">এখনই দেখুন</button>
+            <p>আমার Google Sheet এ আপনাকে স্বাগতম। ৩ সেকেন্ড পর automatically redirect হবে।</p>
+            <button class="welcome-btn" onclick="redirectToSheet()">এখনই দেখুন</button>
         </div>
     </div>
 
@@ -376,6 +376,18 @@
     </button>
 
     <script>
+        // Google Sheet direct URL
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1h-v0v_GOtrdojea9Mkg2YvL9yeY0ff-iaNbBb83wJlQ/edit?usp=sharing';
+
+        // Redirect to Google Sheet
+        function redirectToSheet() {
+            // Smooth transition effect
+            document.body.style.opacity = '0.5';
+            setTimeout(() => {
+                window.location.href = SHEET_URL;
+            }, 200);
+        }
+
         // Smooth loading experience
         document.addEventListener('DOMContentLoaded', function() {
             // Hide loading screen after content loads
@@ -389,7 +401,6 @@
         function startCountdown() {
             let count = 3;
             const countdownElement = document.getElementById('countdownCircle');
-            const modal = document.getElementById('welcomeModal');
             
             const countdownInterval = setInterval(() => {
                 count--;
@@ -401,13 +412,8 @@
                 
                 if (count === 0) {
                     clearInterval(countdownInterval);
-                    // Close modal and scroll to sheet
-                    closeModal();
-                    setTimeout(() => {
-                        document.querySelector('.sheet-container').scrollIntoView({ 
-                            behavior: 'smooth' 
-                        });
-                    }, 500);
+                    // Redirect to Google Sheet
+                    redirectToSheet();
                 }
             }, 1000);
         }
