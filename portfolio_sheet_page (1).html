@@ -152,12 +152,29 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
             opacity: 0;
             animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        /* Countdown circle */
+        .countdown-circle {
+            position: absolute;
+            top: 1rem;
+            left: 1.25rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: conic-gradient(#00ff88 0deg, #333 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
         }
 
         .modal-content {
@@ -324,10 +341,11 @@
     <!-- Welcome Modal -->
     <div id="welcomeModal" class="modal">
         <div class="modal-content">
+            <div class="countdown-circle" id="countdownCircle">3</div>
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>স্বাগতম</h2>
-            <p>আমার Portfolio Dashboard এ আপনাকে স্বাগতম। এখানে আপনি আমার সকল প্রজেক্ট এবং কাজের বিস্তারিত দেখতে পাবেন।</p>
-            <button class="welcome-btn" onclick="closeModal()">শুরু করুন</button>
+            <p>আমার Portfolio Dashboard এ আপনাকে স্বাগতম। ৩ সেকেন্ড পর automatically redirect হবে।</p>
+            <button class="welcome-btn" onclick="closeModal()">এখনই দেখুন</button>
         </div>
     </div>
 
@@ -363,8 +381,36 @@
             // Hide loading screen after content loads
             setTimeout(() => {
                 document.body.classList.add('loaded');
+                startCountdown(); // Start countdown after loading
             }, 1000);
         });
+
+        // Countdown function with visual circle
+        function startCountdown() {
+            let count = 3;
+            const countdownElement = document.getElementById('countdownCircle');
+            const modal = document.getElementById('welcomeModal');
+            
+            const countdownInterval = setInterval(() => {
+                count--;
+                countdownElement.textContent = count;
+                
+                // Update circle progress
+                const percentage = ((3 - count) / 3) * 360;
+                countdownElement.style.background = `conic-gradient(#00ff88 ${percentage}deg, #333 ${percentage}deg)`;
+                
+                if (count === 0) {
+                    clearInterval(countdownInterval);
+                    // Close modal and scroll to sheet
+                    closeModal();
+                    setTimeout(() => {
+                        document.querySelector('.sheet-container').scrollIntoView({ 
+                            behavior: 'smooth' 
+                        });
+                    }, 500);
+                }
+            }, 1000);
+        }
 
         // Modal functions with smooth transitions
         function closeModal() {
@@ -392,13 +438,8 @@
             }
         }
 
-        // Auto-close modal after 8 seconds
-        setTimeout(function() {
-            const modal = document.getElementById('welcomeModal');
-            if (modal.style.display !== 'none') {
-                closeModal();
-            }
-        }, 8000);
+        // Auto-close modal removed - now handled by countdown
+        // Users can still manually close modal anytime
 
         // Preload iframe for better performance
         window.addEventListener('load', function() {
