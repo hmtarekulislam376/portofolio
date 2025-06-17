@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarek's Portfolio Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Loading screen */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-top: 2px solid #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .sheet-container {
+            background: #111111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .sheet-container:hover {
+            border-color: #333;
+        }
+
+        .sheet-header {
+            background: #111111;
+            border-bottom: 1px solid #222;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .sheet-header h2 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+
+        .sheet-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .sheet-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+            background: #000;
+            filter: invert(1) hue-rotate(180deg);
+            transition: filter 0.3s ease;
+        }
+
+        .contact-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #00ff88;
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            padding: 0.875rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+        }
+
+        .contact-btn:hover {
+            background: #00e67a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .contact-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Welcome Modal - Minimalist */
+        .modal {
+            display: flex;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .modal-content {
+            background: #111111;
+            border: 1px solid #333;
+            padding: 2.5rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            animation: modalSlide 0.4s ease-out;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #888;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-btn {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .welcome-btn:hover {
+            background: #00e67a;
+            transform: translateY(-1px);
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.25rem;
+            color: #666;
+            font-size: 1.5rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #ffffff;
+        }
+
+        /* Smooth Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .sheet-embed {
+                height: 450px;
+            }
+            
+            .contact-btn {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                padding: 0.75rem 1.25rem;
+                font-size: 0.85rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 2rem 1.5rem;
+            }
+            
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Hide loading after page loads */
+        .loaded .loading {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Performance optimizations */
+        .sheet-container {
+            contain: layout style paint;
+        }
+
+        .contact-btn {
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>স্বাগতম</h2>
+            <p>আমার Portfolio Dashboard এ আপনাকে স্বাগতম। এখানে আপনি আমার সকল প্রজেক্ট এবং কাজের বিস্তারিত দেখতে পাবেন।</p>
+            <button class="welcome-btn" onclick="closeModal()">শুরু করুন</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Tarek's Portfolio</h1>
+            <p>Projects, skills, and achievements</p>
+        </div>
+
+        <div class="sheet-container">
+            <div class="sheet-header">
+                <h2>Portfolio Data</h2>
+                <p>Real-time project information</p>
+            </div>
+            <iframe 
+                class="sheet-embed"
+                src="https://docs.google.com/spreadsheets/d/1h-v0v_GOtrdojea9Mkg2YvL9yeY0ff-iaNbBb83wJlQ/edit?usp=sharing&output=html&widget=true"
+                frameborder="0"
+                loading="lazy"
+                allowfullscreen="true">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Contact Button -->
+    <button class="contact-btn" onclick="openPortfolio()">
+        📞 Contact
+    </button>
+
+    <script>
+        // Smooth loading experience
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen after content loads
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 1000);
+        });
+
+        // Modal functions with smooth transitions
+        function closeModal() {
+            const modal = document.getElementById('welcomeModal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function openPortfolio() {
+            // Smooth transition effect
+            document.body.style.opacity = '0.7';
+            setTimeout(() => {
+                window.open('https://hmtarekulislam376.github.io/portofolio/tarek_portfolio.html', '_blank');
+                document.body.style.opacity = '1';
+            }, 150);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('welcomeModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Auto-close modal after 8 seconds
+        setTimeout(function() {
+            const modal = document.getElementById('welcomeModal');
+            if (modal.style.display !== 'none') {
+                closeModal();
+            }
+        }, 8000);
+
+        // Preload iframe for better performance
+        window.addEventListener('load', function() {
+            const iframe = document.querySelector('.sheet-embed');
+            if (iframe) {
+                iframe.style.opacity = '1';
+            }
+        });
+
+        // Smooth scroll to top on page reload
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>
