@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Main Pokémon Characters</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 25%, #fecfef 75%, #ff9a9e 100%);
+            min-height: 100vh;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 25%, #a8edea 75%, #fed6e3 100%); }
+            50% { background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 25%, #ff8a80 75%, #ffcdd2 100%); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: bounceIn 2s ease;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+            margin-bottom: 15px;
+            font-weight: bold;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .pokemon-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .pokemon-hero-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 4px solid;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .pikachu-card { border-color: #ffd93d; }
+        .charizard-card { border-color: #ff6347; }
+        .blastoise-card { border-color: #4682b4; }
+        .venusaur-card { border-color: #32cd32; }
+        .mewtwo-card { border-color: #9370db; }
+        .mew-card { border-color: #ff69b4; }
+
+        .pokemon-hero-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .pokemon-hero-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+        }
+
+        .pokemon-hero-card:hover::before {
+            opacity: 1;
+            top: -50%;
+            left: -50%;
+        }
+
+        .pokemon-avatar {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+        }
+
+        .pokemon-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .pikachu-card .pokemon-name { color: #ff6b35; }
+        .charizard-card .pokemon-name { color: #dc143c; }
+        .blastoise-card .pokemon-name { color: #1e90ff; }
+        .venusaur-card .pokemon-name { color: #228b22; }
+        .mewtwo-card .pokemon-name { color: #8a2be2; }
+        .mew-card .pokemon-name { color: #ff1493; }
+
+        .pokemon-types {
+            margin: 20px 0;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .electric { background: linear-gradient(45deg, #ffd93d, #ffb74d); }
+        .fire { background: linear-gradient(45deg, #ff6347, #ff4500); }
+        .flying { background: linear-gradient(45deg, #87ceeb, #4682b4); }
+        .water { background: linear-gradient(45deg, #1e90ff, #0066cc); }
+        .grass { background: linear-gradient(45deg, #32cd32, #228b22); }
+        .poison { background: linear-gradient(45deg, #9370db, #663399); }
+        .psychic { background: linear-gradient(45deg, #ff69b4, #c71585); }
+
+        .pokemon-description {
+            color: #555;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .pokemon-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 25px 0;
+            background: rgba(255,255,255,0.7);
+            border-radius: 15px;
+            padding: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .interaction-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+        }
+
+        .message-display {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+            font-size: 1.3rem;
+            display: none;
+            animation: slideUp 0.5s ease;
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.3);
+        }
+
+        .decorative-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-pokeball {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: orbit 15s linear infinite;
+        }
+
+        .pokeball-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .pokeball-2 { top: 70%; right: 10%; animation-delay: -5s; }
+        .pokeball-3 { bottom: 20%; left: 15%; animation-delay: -10s; }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3) translateY(-50px); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(0deg); }
+            75% { transform: translateY(-20px) rotate(-2deg); }
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(78, 205, 196, 0.8), 0 0 60px rgba(69, 183, 209, 0.6); }
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .pokemon-showcase { grid-template-columns: 1fr; gap: 30px; }
+            .pokemon-hero-card { padding: 25px; }
+            .pokemon-avatar { font-size: 4.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="decorative-elements">
+        <div class="floating-pokeball pokeball-1">⚪🔴</div>
+        <div class="floating-pokeball pokeball-2">⚪🔴</div>
+        <div class="floating-pokeball pokeball-3">⚪🔴</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">✨ Main Pokémon Heroes ✨</h1>
+            <p class="subtitle">Meet the most beloved and iconic Pokémon characters!</p>
+        </div>
+
+        <div class="pokemon-showcase">
+            <div class="pokemon-hero-card pikachu-card">
+                <span class="pokemon-avatar">⚡🐭</span>
+                <h2 class="pokemon-name">Pikachu</h2>
+                <div class="pokemon-types">
+                    <span class="type-badge electric">Electric</span>
+                </div>
+                <p class="pokemon-description">"The electric mouse Pokémon and Ash's best friend! Pikachu's loyalty and courage make it the ultimate companion."</p>
+                <div class="pokemon-stats">
+                    <div class="stat">
+                        <div class="stat-value">💖</div>
+                        <div class="stat-label">Cuteness</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">⚡</div>
+                        <div class="stat-label">Power</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">🤝</div>
+                        <div class="stat-label">Friendship</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pokemon-hero-card charizard-card">
+                <span class="pokemon-avatar">🔥🐉</span>
+                <h2 class="pokemon-name">Charizard</h2>
+                <div class="pokemon-types">
+                    <span class="type-badge fire">Fire</span>
+                    <span class="type-badge flying">Flying</span>
+                </div>
+                <p class="pokemon-description">"The flame Pokémon! Charizard's fire burns hotter when it faces stronger opponents. A symbol of strength and determination."</p>
+                <div class="pokemon-stats">
+                    <div class="stat">
+                        <div class="stat-value">🔥</div>
+                        <div class="stat-label">Fire Power</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">💪</div>
+                        <div class="stat-label">Strength</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">🦅</div>
+                        <div class="stat-label">Flight</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pokemon-hero-card blastoise-card">
+                <span class="pokemon-avatar">💧🐢</span>
+                <h2 class="pokemon-name">Blastoise</h2>
+                <div class="pokemon-types">
+                    <span class="type-badge water">Water</span>
+                </div>
+                <p class="pokemon-description">"The shellfish Pokémon! Blastoise can crush almost anything with its powerful jaws and water cannons."</p>
+                <div class="pokemon-stats">
+                    <div class="stat">
+                        <div class="stat-value">🌊</div>
+                        <div class="stat-label">Water Power</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">🛡️</div>
+                        <div class="stat-label">Defense</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">💙</div>
+                        <div class="stat-label">Loyalty</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pokemon-hero-card venusaur-card">
+                <span class="pokemon-avatar">🌺🦕</span>
+                <h2 class="pokemon-name">Venusaur</h2>
+                <div class="pokemon-types">
+                    <span class="type-badge grass">Grass</span>
+                    <span class="type-badge poison">Poison</span>
+                </div>
+                <p class="pokemon-description">"The seed Pokémon! Venusaur's flower releases a soothing scent that enhances emotions and battle instincts."</p>
+                <div class="pokemon-stats">
+                    <div class="stat">
+                        <div class="stat-value">🌱</div>
+                        <div class="stat-label">Nature Power</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">🌸</div>
+                        <div class="stat-label">Healing</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">💚</div>
+                        <div class="stat-label">Harmony</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pokemon-hero-card mewtwo-card">
+                <span class="pokemon-avatar">🧠👁️</span>
+                <h2 class="pokemon-name">Mewtwo</h2>
+                <div class="pokemon-types">
+                    <span class="type-badge psychic">Psychic</span>
+                </div>
+                <p class="pokemon-description">"The genetic Pokémon! Created through genetic manipulation, Mewtwo has unmatched psychic powers and a complex heart."</p>
+                <div class="pokemon-stats">
+                    <div class="stat">
+                        <div class="stat-value">🧠</div>
+                        <div class="stat-label">Psychic</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">⚡</div>
+                        <div class="stat-label">Power</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">🤔</div>
+                        <div class="stat-label">Wisdom</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pokemon-hero-card mew-card">
+                <span class="pokemon-avatar">🌟😺</span>
+                <h2 class="pokemon-name">Mew</h2>
+                <div class="pokemon-types">
+                    <span class="type-badge psychic">Psychic</span>
+                </div>
+                <p class="pokemon-description">"The new species Pokémon! Mew is said to contain the genetic codes of all Pokémon. Pure, playful, and mysterious!"</p>
+                <div class="pokemon-stats">
+                    <div class="stat">
+                        <div class="stat-value">✨</div>
+                        <div class="stat-label">Magic</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">🎭</div>
+                        <div class="stat-label">Playfulness</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">💗</div>
+                        <div class="stat-label">Purity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="interaction-panel">
+            <h2 style="color: #ff6b6b; font-size: 2.5rem; margin-bottom: 20px;">🎮 Adventure Time!</h2>
+            <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">Choose your adventure with these legendary Pokémon!</p>
+            
+            <div class="action-buttons">
+                <button class="action-btn" onclick="startBattle()">⚔️ Epic Battle</button>
+                <button class="action-btn" onclick="goOnAdventure()">🗺️ Adventure</button>
+                <button class="action-btn" onclick="makeFriends()">💕 Make Friends</button>
+                <button class="action-btn" onclick="trainPokemon()">🏋️ Training</button>
+            </div>
+            
+            <div id="adventureMessage" class="message-display"></div>
+        </div>
+    </div>
+
+    <script>
+        const adventures = {
+            battle: [
+                "⚡ Pikachu uses Thunderbolt! It's super effective! You won an epic battle!",
+                "🔥 Charizard's Fire Blast lights up the sky! Victory is yours!",
+                "💧 Blastoise's Hydro Pump creates a rainbow! Amazing teamwork!",
+                "🌱 Venusaur's Solar Beam charges the whole field with energy!",
+                "🧠 Mewtwo's Psychic power creates a spectacular light show!",
+                "✨ Mew transforms and surprises everyone with playful moves!"
+            ],
+            adventure: [
+                "🗺️ You and Pikachu discovered a hidden electric cave full of rare gems!",
+                "🏔️ Charizard flew you to the top of a mountain where you found ancient treasures!",
+                "🌊 Blastoise helped you explore underwater ruins and meet friendly water Pokémon!",
+                "🌳 Venusaur guided you through a magical forest where flowers sing!",
+                "🌌 Mewtwo showed you visions of distant galaxies and cosmic wonders!",
+                "🌈 Mew teleported you to a secret dimension filled with rainbow clouds!"
+            ],
+            friends: [
+                "💖 Pikachu nuzzled your cheek! You're now best friends forever!",
+                "🤗 Charizard gently wrapped its wing around you in a warm hug!",
+                "🐢 Blastoise playfully sprayed water creating beautiful patterns just for you!",
+                "🌺 Venusaur's flower bloomed with the most beautiful fragrance as a gift!",
+                "😌 Mewtwo shared its deepest thoughts and trusts you completely!",
+                "😸 Mew giggled and played tag with you in the clouds!"
+            ],
+            training: [
+                "⚡ Pikachu learned a new electric move and is glowing with pride!",
+                "🔥 Charizard's flames burn brighter than ever after intense training!",
+                "💪 Blastoise's water cannons are now incredibly precise and powerful!",
+                "🌱 Venusaur mastered a new healing technique that helps all Pokémon!",
+                "🧠 Mewtwo unlocked new psychic abilities that amaze everyone!",
+                "✨ Mew learned to transform into any Pokémon perfectly!"
+            ]
+        };
+
+        function showAdventureMessage(type) {
+            const messageBox = document.getElementById('adventureMessage');
+            const messages = adventures[type];
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            messageBox.textContent = randomMessage;
+            messageBox.style.display = 'block';
+            
+            // Add sparkle effects
+            createMagicalEffects();
+            
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 4000);
+        }
+
+        function startBattle() {
+            showAdventureMessage('battle');
+        }
+
+        function goOnAdventure() {
+            showAdventureMessage('adventure');
+        }
+
+        function makeFriends() {
+            showAdventureMessage('friends');
+        }
+
+        function trainPokemon() {
+            showAdventureMessage('training');
+        }
+
+        function createMagicalEffects() {
+            const effects = ['⭐', '✨', '🌟', '💫', '🎆', '🎊'];
+            
+            for (let i = 0; i < 15; i++) {
+                const effect = document.createElement('div');
+                effect.innerHTML = effects[Math.floor(Math.random() * effects.length)];
+                effect.style.position = 'fixed';
+                effect.style.left = Math.random() * window.innerWidth + 'px';
+                effect.style.top = Math.random() * window.innerHeight + 'px';
+                effect.style.fontSize = '2rem';
+                effect.style.pointerEvents = 'none';
+                effect.style.zIndex = '9999';
+                effect.style.animation = 'float 2s ease-out forwards';
+                document.body.appendChild(effect);
+                
+                setTimeout(() => {
+                    effect.remove();
+                }, 2000);
+            }
+        }
+
+        // Add entrance animations for cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `bounceIn 0.8s ease ${index * 0.2}s both`;
+                }
+            });
+        });
+
+        document.querySelectorAll('.pokemon-hero-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
