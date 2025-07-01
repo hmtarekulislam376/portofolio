@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacked by Pikachu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f0f23 75%, #1a1a2e 100%);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+        }
+        
+
+        
+        /* Hacker Words Effect */
+        .hacker-words {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .hacker-word {
+            position: absolute;
+            font-family: 'Orbitron', monospace;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(59, 130, 246, 0.5);
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+            animation: fall linear infinite;
+            user-select: none;
+        }
+        
+        /* Background Text */
+        .bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(8rem, 15vw, 20rem);
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            letter-spacing: 0.2em;
+            z-index: 1;
+            user-select: none;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        /* Main Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            animation: rotate 8s linear infinite;
+        }
+        
+        /* Pikachu Image - Made bigger */
+        .pikachu-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Hacked by Text */
+        .made-by {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffffff, #3b82f6, #ffffff);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signature {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            color: rgba(59, 130, 246, 0.8);
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(59, 130, 246, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+            animation: float-particle 8s linear infinite;
+        }
+        
+        /* Generate multiple particles */
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 6s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; animation-duration: 8s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; animation-duration: 7s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 0.5s; animation-duration: 9s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 1.5s; animation-duration: 6s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 2.5s; animation-duration: 8s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 3s; animation-duration: 7s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 3.5s; animation-duration: 9s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 4s; animation-duration: 6s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 4.5s; animation-duration: 8s; }
+        
+        /* Animations */
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+        
+        @keyframes glow {
+            0% { 
+                box-shadow: 0 0 50px rgba(59, 130, 246, 0.5);
+                transform: scale(1);
+            }
+            100% { 
+                box-shadow: 0 0 80px rgba(59, 130, 246, 0.8), 0 0 120px rgba(255, 255, 255, 0.3);
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.03; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.08; transform: translate(-50%, -50%) scale(1.02); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+            
+            .pikachu-img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .made-by {
+                font-size: 2rem;
+            }
+            
+            .bg-text {
+                font-size: clamp(4rem, 12vw, 8rem);
+            }
+            
+            .footer-text {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .footer {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://i.top4top.io/m_3469nz9z31.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+
+    
+    <!-- Hacker Words Effect -->
+    <div class="hacker-words" id="hackerWords"></div>
+    
+    <!-- Background Text -->
+    <div class="bg-text">PIKACHU</div>
+    
+    <!-- Floating Particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <div class="card">
+            <img src="https://iili.io/F7k3GON.png" alt="Pikachu" class="pikachu-img">
+            <div class="made-by">Hacked BY PIKACHU</div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-text">No one is too small to help another</div>
+        <div class="signature">- speak by purnota sheikh</div>
+    </div>
+    
+    <script>
+        // Background music functionality
+        const audio = document.getElementById('backgroundMusic');
+        
+        // Auto-play music when page loads
+        window.addEventListener('load', function() {
+            audio.volume = 1.0; // Full volume
+            audio.play().catch(error => {
+                console.log('Auto-play prevented by browser, will play on first interaction');
+            });
+        });
+        
+        // Ensure music plays on any user interaction
+        document.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play().catch(e => {
+                    console.log('Could not play audio');
+                });
+            }
+        }, { once: true });
+        
+        // Hacker words array
+        const hackerWords = [
+            'HACK', 'CODE', 'SYSTEM', 'ACCESS', 'DENIED', 'ROOT', 'ADMIN', 'SHELL',
+            'FIREWALL', 'BREACH', 'ENCRYPT', 'DECRYPT', 'VIRUS', 'MALWARE', 'EXPLOIT',
+            'BACKDOOR', 'TROJAN', 'PHISHING', 'BOTNET', 'KEYLOGGER', 'RANSOMWARE',
+            'CYBERSEC', 'PENTESTING', 'PAYLOAD', 'INJECTION', 'BUFFER', 'OVERFLOW',
+            'BINARY', 'HEX', 'ASCII', 'PROTOCOL', 'NETWORK', 'PACKET', 'SOCKET',
+            'SERVER', 'CLIENT', 'DATABASE', 'SQL', 'QUERY', 'JAVASCRIPT', 'PYTHON'
+        ];
+        
+        // Create falling hacker words
+        function createHackerWord() {
+            const word = document.createElement('div');
+            word.className = 'hacker-word';
+            word.textContent = hackerWords[Math.floor(Math.random() * hackerWords.length)];
+            word.style.left = Math.random() * 100 + '%';
+            word.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            word.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.getElementById('hackerWords').appendChild(word);
+            
+            // Remove word after animation
+            setTimeout(() => {
+                word.remove();
+            }, 8000);
+        }
+        
+        // Create hacker words continuously
+        setInterval(createHackerWord, 300);
+        
+        // Add more dynamic particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.animationDuration = (Math.random() * 3 + 6) + 's';
+            document.body.appendChild(particle);
+            
+            // Remove particle after animation
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+        
+        // Create particles continuously
+        setInterval(createParticle, 1000);
+        
+        // Add mouse movement effect
+        document.addEventListener('mousemove', (e) => {
+            const card = document.querySelector('.card');
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            const rotateX = (y / rect.height) * 10;
+            const rotateY = (x / rect.width) * 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        // Reset card position when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            const card = document.querySelector('.card');
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        });
+    </script>
+</body>
+</html>
